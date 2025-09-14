@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Samhax Tech</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ffff;
+            --secondary: #ff0080;
+            --accent: #00ff41;
+            --dark: #0a0a0f;
+            --darker: #050508;
+            --light: #ffffff;
+            --gray: #333344;
+            --neon-blue: #00d4ff;
+            --neon-pink: #ff006e;
+            --neon-green: #39ff14;
+            --neon-purple: #bf00ff;
+            --electric-blue: #0080ff;
+            --cyber-orange: #ff4500;
+        }
+
+        /* Theme Variables */
+        [data-theme="classic"] {
+            --primary: #00ffff;
+            --secondary: #ff0080;
+            --accent: #00ff41;
+        }
+
+        [data-theme="matrix"] {
+            --primary: #00ff41;
+            --secondary: #39ff14;
+            --accent: #00ffff;
+        }
+
+        [data-theme="neon"] {
+            --primary: #ff006e;
+            --secondary: #bf00ff;
+            --accent: #00d4ff;
+        }
+
+        [data-theme="retro"] {
+            --primary: #ff4500;
+            --secondary: #ffff00;
+            --accent: #ff69b4;
+        }
+
+        body {
+            font-family: 'Rajdhani', 'Orbitron', monospace;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--darker) 0%, #1a0033 25%, #000011 50%, #001122 75%, var(--dark) 100%);
+            background-attachment: fixed;
+            color: var(--light);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Cyberpunk Grid Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+            animation: gridPulse 4s ease-in-out infinite alternate;
+        }
+        
+        @keyframes gridPulse {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.1; }
+        }
+
+        /* Enhanced Navigation */
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+            padding: 15px 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--primary);
+            box-shadow: 0 5px 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+            text-shadow: 0 0 10px var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 20px var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .nav-links a:hover::before {
+            left: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid var(--primary);
+        }
+
+        /* Unique Theme Switcher */
+        .theme-switcher {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px solid var(--primary);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .theme-title {
+            color: var(--primary);
+            font-size: 0.9rem;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .theme-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .theme-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .theme-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+        }
+
+        .theme-option.active {
+            border-color: var(--primary);
+            background: rgba(0, 255, 255, 0.1);
+        }
+
+        .theme-preview {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-preview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: conic-gradient(var(--theme-color1), var(--theme-color2), var(--theme-color3), var(--theme-color1));
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .theme-label {
+            font-size: 0.7rem;
+            color: var(--light);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .theme-classic { --theme-color1: #00ffff; --theme-color2: #ff0080; --theme-color3: #00ff41; }
+        .theme-matrix { --theme-color1: #00ff41; --theme-color2: #39ff14; --theme-color3: #00ffff; }
+        .theme-neon { --theme-color1: #ff006e; --theme-color2: #bf00ff; --theme-color3: #00d4ff; }
+        .theme-retro { --theme-color1: #ff4500; --theme-color2: #ffff00; --theme-color3: #ff69b4; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px 20px;
+        }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            padding: 60px 0;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1) 0%, rgba(255, 0, 128, 0.1) 100%);
+            border-radius: 20px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            animation: scanline 3s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes scanline {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin: 0 0 20px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Blog Posts */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .blog-post-card {
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(5px);
+        }
+
+        .blog-post-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 255, 255, 0.2);
+        }
+
+        .blog-post-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .blog-content {
+            padding: 25px;
+        }
+
+        .blog-content h3 {
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+
+        .blog-content p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .blog-meta {
+            font-size: 0.85rem;
+            color: var(--accent);
+        }
+
+        .read-more-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: linear-gradient(90deg, var(--primary), var(--electric-blue));
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .read-more-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .theme-switcher {
+                right: 10px;
+                top: 70px;
+            }
+        }
+    </style>
+</head>
+<body data-theme="classic">
+    <nav class="nav-bar">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">Samhax-Tech</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="games.html">Games</a>
+                <a href="blog.html">Blog</a>
+                <a href="features.html">Features</a>
+                <a href="index.html#projects">Projects</a>
+                <a href="index.html#about">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Enhanced Theme Switcher -->
+    <div class="theme-switcher">
+        <div class="theme-title">Cyber Themes</div>
+        <div class="theme-options">
+            <div class="theme-option theme-classic active" data-theme="classic">
+                <div class="theme-preview"></div>
+                <div class="theme-label">Classic</div>
+            </div>
+            <div class="theme-option theme-matrix" data-theme="matrix">
+                <div class="theme-preview"></div>
+                <div class="theme-label">Matrix</div>
+            </div>
+            <div class="theme-option theme-neon" data-theme="neon">
+                <div class="theme-preview"></div>
+                <div class="theme-label">Neon</div>
+            </div>
+            <div class="theme-option theme-retro" data-theme="retro">
+                <div class="theme-preview"></div>
+                <div class="theme-label">Retro</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>📝 Samhax-Tech Blog 📝</h1>
+            <p>Dive into the latest in web design, AI, bot development, and cybersecurity. Stay updated with insights, tutorials, and project showcases.</p>
+        </div>
+
+        <div class="blog-grid">
+            <div class="blog-post-card">
+                <img src="blog_post_1_placeholder.png" alt="Blog Post Image">
+                <div class="blog-content">
+                    <h3>The Future of AI in Web Development</h3>
+                    <p>Explore how artificial intelligence is revolutionizing web development, from automated code generation to intelligent user interfaces.</p>
+                    <div class="blog-meta">By Samhax-Tech | September 10, 2025</div>
+                    <a href="#" class="read-more-btn">Read More</a>
+                </div>
+            </div>
+
+            <div class="blog-post-card">
+                <img src="blog_post_2_placeholder.png" alt="Blog Post Image">
+                <div class="blog-content">
+                    <h3>Building Secure Cyberpunk Web Applications</h3>
+                    <p>A deep dive into best practices for securing web applications in a hyper-connected, data-driven world, inspired by cyberpunk aesthetics.</p>
+                    <div class="blog-meta">By Samhax-Tech | August 28, 2025</div>
+                    <a href="#" class="read-more-btn">Read More</a>
+                </div>
+            </div>
+
+            <div class="blog-post-card">
+                <img src="blog_post_3_placeholder.png" alt="Blog Post Image">
+                <div class="blog-content">
+                    <h3>Mastering Responsive Design in a Multi-Device Era</h3>
+                    <p>Tips and tricks for creating stunning, responsive web designs that adapt seamlessly to any screen size, from desktops to wearables.</p>
+                    <div class="blog-meta">By Samhax-Tech | August 15, 2025</div>
+                    <a href="#" class="read-more-btn">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced Theme Switcher
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeOptions = document.querySelectorAll('.theme-option');
+            const body = document.body;
+
+            themeOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const theme = option.getAttribute('data-theme');
+                    body.setAttribute('data-theme', theme);
+                    
+                    // Update active option
+                    themeOptions.forEach(opt => opt.classList.remove('active'));
+                    option.classList.add('active');
+                    
+                    // Save theme preference
+                    localStorage.setItem('preferred-theme', theme);
+                });
+            });
+
+            // Load saved theme
+            const savedTheme = localStorage.getItem('preferred-theme') || 'classic';
+            body.setAttribute('data-theme', savedTheme);
+            document.querySelector(`[data-theme="${savedTheme}"]`).classList.add('active');
+        });
+    </script>
+</body>
+</html>
