@@ -24,6 +24,31 @@
             --electric-blue: #0080ff;
             --cyber-orange: #ff4500;
         }
+
+        /* Theme Variables */
+        [data-theme="classic"] {
+            --primary: #00ffff;
+            --secondary: #ff0080;
+            --accent: #00ff41;
+        }
+
+        [data-theme="matrix"] {
+            --primary: #00ff41;
+            --secondary: #39ff14;
+            --accent: #00ffff;
+        }
+
+        [data-theme="neon"] {
+            --primary: #ff006e;
+            --secondary: #bf00ff;
+            --accent: #00d4ff;
+        }
+
+        [data-theme="retro"] {
+            --primary: #ff4500;
+            --secondary: #ffff00;
+            --accent: #ff69b4;
+        }
         
         body {
             font-family: 'Rajdhani', 'Orbitron', monospace;
@@ -36,7 +61,7 @@
             position: relative;
         }
         
-        /* Cyberpunk Grid Background */
+        /* Enhanced Cyberpunk Grid Background */
         body::before {
             content: '';
             position: fixed;
@@ -57,29 +82,287 @@
             0% { opacity: 0.3; }
             100% { opacity: 0.1; }
         }
-        
-        /* Floating Particles */
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            animation: glitch 2s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        /* Enhanced Floating Particles */
         .particle {
             position: fixed;
-            width: 2px;
-            height: 2px;
+            width: 3px;
+            height: 3px;
             background: var(--neon-blue);
             border-radius: 50%;
             pointer-events: none;
             z-index: -1;
             animation: float 6s linear infinite;
+            box-shadow: 0 0 10px currentColor;
         }
         
-        .particle:nth-child(2n) { background: var(--neon-pink); animation-duration: 8s; }
-        .particle:nth-child(3n) { background: var(--neon-green); animation-duration: 10s; }
-        .particle:nth-child(4n) { background: var(--neon-purple); animation-duration: 7s; }
-        .particle:nth-child(5n) { background: var(--electric-blue); animation-duration: 9s; }
+        .particle:nth-child(2n) { 
+            background: var(--neon-pink); 
+            animation-duration: 8s; 
+            width: 2px; 
+            height: 2px;
+        }
+        .particle:nth-child(3n) { 
+            background: var(--neon-green); 
+            animation-duration: 10s; 
+            width: 4px; 
+            height: 4px;
+        }
+        .particle:nth-child(4n) { 
+            background: var(--neon-purple); 
+            animation-duration: 7s; 
+            width: 2px; 
+            height: 2px;
+        }
+        .particle:nth-child(5n) { 
+            background: var(--electric-blue); 
+            animation-duration: 9s; 
+            width: 3px; 
+            height: 3px;
+        }
         
         @keyframes float {
             0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
             10% { opacity: 1; }
             90% { opacity: 1; }
             100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        /* Theme Switcher */
+        .theme-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 25px;
+            border: 1px solid var(--primary);
+            backdrop-filter: blur(10px);
+        }
+
+        .theme-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .theme-btn:hover {
+            transform: scale(1.1);
+            border-color: white;
+        }
+
+        .theme-btn.active {
+            border-color: white;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .theme-classic { background: linear-gradient(45deg, #00ffff, #ff0080); }
+        .theme-matrix { background: linear-gradient(45deg, #00ff41, #39ff14); }
+        .theme-neon { background: linear-gradient(45deg, #ff006e, #bf00ff); }
+        .theme-retro { background: linear-gradient(45deg, #ff4500, #ffff00); }
+
+        /* Visitor Counter */
+        .visitor-counter {
+            position: fixed;
+            bottom: 100px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 20px;
+            border-radius: 15px;
+            border: 1px solid var(--primary);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            font-family: 'Orbitron', monospace;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .visitor-counter h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .counter-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent);
+            text-shadow: 0 0 10px currentColor;
+            font-family: 'Orbitron', monospace;
+        }
+
+        /* Hacking Terminal */
+        .hacking-terminal {
+            position: fixed;
+            top: 80px;
+            left: 20px;
+            width: 350px;
+            height: 200px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid var(--accent);
+            border-radius: 10px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: var(--accent);
+            overflow: hidden;
+            z-index: 999;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid var(--accent);
+        }
+
+        .terminal-title {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .terminal-close {
+            background: none;
+            border: none;
+            color: #ff4444;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .terminal-content {
+            height: 140px;
+            overflow-y: auto;
+            line-height: 1.4;
+        }
+
+        .terminal-line {
+            margin-bottom: 2px;
+            opacity: 0;
+            animation: fadeInTerminal 0.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeInTerminal {
+            to { opacity: 1; }
+        }
+
+        .terminal-cursor {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Mini Game - Snake */
+        .mini-game {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 20px;
+            z-index: 1001;
+            display: none;
+            backdrop-filter: blur(10px);
+        }
+
+        .mini-game.active {
+            display: block;
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .game-title {
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .game-close {
+            background: none;
+            border: none;
+            color: #ff4444;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .game-canvas {
+            border: 2px solid var(--accent);
+            background: #000;
+        }
+
+        .game-score {
+            text-align: center;
+            margin-top: 10px;
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .game-controls {
+            text-align: center;
+            margin-top: 10px;
+            color: var(--light);
+            font-size: 0.9rem;
+        }
+
+        /* Game Toggle Button */
+        .game-toggle-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.8rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 255, 65, 0.5);
+            z-index: 1001;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .game-toggle-btn:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 8px 25px rgba(0, 255, 65, 0.7);
         }
         
         .container {
@@ -188,88 +471,6 @@
             margin: 40px 0;
         }
         
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 28px;
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            border: 2px solid transparent;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
-        }
-        
-        .btn:hover::before {
-            left: 100%;
-        }
-        
-        .btn-whatsapp { 
-            background: linear-gradient(135deg, #25D366, #128C7E);
-            border-color: rgba(255,255,255,0.1);
-        }
-        
-        .btn-insta { 
-            background: linear-gradient(135deg, #E1306C, #833AB4);
-            border-color: rgba(255,255,255,0.1);
-        }
-        
-        .btn-youtube { 
-            background: linear-gradient(135deg, #FF0000, #CC0000);
-            border-color: rgba(255,255,255,0.1);
-        }
-        
-        .btn-resume { 
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-            border-color: rgba(255,255,255,0.1);
-        }
-        
-        .btn-about { 
-            background: linear-gradient(135deg, #9b59b6, #8e44ad);
-            border-color: rgba(255,255,255,0.1);
-        }
-        
-        .btn-github {
-            background: linear-gradient(135deg, #333, #6e5494);
-            border-color: rgba(255,255,255,0.1);
-        }
-        
-        .btn-telegram {
-            background: linear-gradient(135deg, #0088cc, #34aadc);
-            border-color: rgba(255,255,255,0.1);
-        }
-        
-        .btn-whatsapp-bot {
-            background: linear-gradient(135deg, #075E54, #128C7E);
-            border-color: rgba(255,255,255,0.1);
-        }
-        
-        .btn-discord {
-            background: linear-gradient(135deg, #5865F2, #404EED);
-            border-color: rgba(255,255,255,0.1);
-        }
-        
-        .btn-hosting {
-            background: linear-gradient(135deg, #7b2dff, #9b59b6);
-            border-color: rgba(255,255,255,0.1);
-        }
-        
-        /* Enhanced Button Styles - More Unique Design */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -827,6 +1028,28 @@
                 bottom: 20px;
                 right: 20px;
             }
+            .theme-switcher {
+                top: 10px;
+                right: 10px;
+                padding: 8px;
+            }
+            .visitor-counter {
+                bottom: 80px;
+                left: 10px;
+                padding: 10px 15px;
+            }
+            .hacking-terminal {
+                width: 90%;
+                left: 5%;
+                top: 60px;
+            }
+            .game-toggle-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+                bottom: 20px;
+                left: 20px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -854,47 +1077,88 @@
         }
     </style>
 </head>
-<body>
-    <!-- Floating Particles -->
-    <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
-    <div class="particle" style="left: 20%; animation-delay: 1s;"></div>
-    <div class="particle" style="left: 30%; animation-delay: 2s;"></div>
-    <div class="particle" style="left: 40%; animation-delay: 3s;"></div>
-    <div class="particle" style="left: 50%; animation-delay: 4s;"></div>
-    <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
-    <div class="particle" style="left: 70%; animation-delay: 1.5s;"></div>
-    <div class="particle" style="left: 80%; animation-delay: 2.5s;"></div>
-    <div class="particle" style="left: 90%; animation-delay: 3.5s;"></div>
-    <div class="particle" style="left: 5%; animation-delay: 0.5s;"></div>
+<body data-theme="classic">
+    <!-- Enhanced Floating Particles -->
+    <div class="particle" style="left: 5%; animation-delay: 0s;"></div>
+    <div class="particle" style="left: 15%; animation-delay: 1s;"></div>
+    <div class="particle" style="left: 25%; animation-delay: 2s;"></div>
+    <div class="particle" style="left: 35%; animation-delay: 3s;"></div>
+    <div class="particle" style="left: 45%; animation-delay: 4s;"></div>
+    <div class="particle" style="left: 55%; animation-delay: 5s;"></div>
+    <div class="particle" style="left: 65%; animation-delay: 1.5s;"></div>
+    <div class="particle" style="left: 75%; animation-delay: 2.5s;"></div>
+    <div class="particle" style="left: 85%; animation-delay: 3.5s;"></div>
+    <div class="particle" style="left: 95%; animation-delay: 0.5s;"></div>
+    <div class="particle" style="left: 10%; animation-delay: 6s;"></div>
+    <div class="particle" style="left: 30%; animation-delay: 7s;"></div>
+    <div class="particle" style="left: 50%; animation-delay: 8s;"></div>
+    <div class="particle" style="left: 70%; animation-delay: 9s;"></div>
+    <div class="particle" style="left: 90%; animation-delay: 10s;"></div>
+
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <div class="theme-btn theme-classic active" data-theme="classic" title="Classic Cyberpunk"></div>
+        <div class="theme-btn theme-matrix" data-theme="matrix" title="Matrix Green"></div>
+        <div class="theme-btn theme-neon" data-theme="neon" title="Neon Pink"></div>
+        <div class="theme-btn theme-retro" data-theme="retro" title="Retro Orange"></div>
+    </div>
+
+    <!-- Visitor Counter -->
+    <div class="visitor-counter">
+        <h4>Data Packets Received</h4>
+        <div class="counter-display" id="visitor-count">0</div>
+    </div>
+
+    <!-- Hacking Terminal -->
+    <div class="hacking-terminal" id="hacking-terminal">
+        <div class="terminal-header">
+            <div class="terminal-title">SYSTEM_ACCESS.exe</div>
+            <button class="terminal-close" onclick="toggleTerminal()">&times;</button>
+        </div>
+        <div class="terminal-content" id="terminal-content">
+            <!-- Terminal lines will be added dynamically -->
+        </div>
+    </div>
+
+    <!-- Mini Game -->
+    <div class="mini-game" id="mini-game">
+        <div class="game-header">
+            <div class="game-title">Cyber Snake</div>
+            <button class="game-close" onclick="toggleGame()">&times;</button>
+        </div>
+        <canvas class="game-canvas" id="game-canvas" width="400" height="400"></canvas>
+        <div class="game-score">Score: <span id="game-score">0</span></div>
+        <div class="game-controls">Use WASD or Arrow Keys to move</div>
+    </div>
 
     <div class="container">
         <header>
-            <img src="profile_image.jpeg" alt="Profile Picture" class="profile-img floating">
-            <h1>Samhax-Tech</h1>
+            <img src="profile_image.jpeg" alt="Profile Picture" class="profile-img floating glitch">
+            <h1 class="glitch">Samhax-Tech</h1>
             <p class="tagline">Web Designer | AI Enthusiast </p>
             <div class="social-buttons">
-                <a href="https://wa.me/923287573267" class="social-btn whatsapp" target="_blank">
+                <a href="https://wa.me/923287573267" class="btn btn-whatsapp" target="_blank">
                     <i class="fab fa-whatsapp"></i> WhatsApp
                 </a>
-                <a href="https://instagram.com/Samhax_official" class="social-btn instagram" target="_blank">
+                <a href="https://instagram.com/Samhax_official" class="btn btn-insta" target="_blank">
                     <i class="fab fa-instagram"></i> Instagram
                 </a>
-                <a href="https://youtube.com/@Samhax_tech" class="social-btn youtube" target="_blank">
+                <a href="https://youtube.com/@Samhax_tech" class="btn btn-youtube" target="_blank">
                     <i class="fab fa-youtube"></i> YouTube
                 </a>
-                <a href="https://github.com/Samhax-tech" class="social-btn github" target="_blank">
+                <a href="https://github.com/Samhax-tech" class="btn btn-github" target="_blank">
                     <i class="fab fa-github"></i> GitHub
                 </a>
-                <a href="https://t.me/Samhax_official" class="social-btn telegram" target="_blank">
+                <a href="https://t.me/Samhax_official" class="btn btn-telegram" target="_blank">
                     <i class="fab fa-telegram"></i> Telegram
                 </a>
-                <a href="https://discord.gg/cs4W3DNDdU" class="social-btn discord" target="_blank">
+                <a href="https://discord.gg/cs4W3DNDdU" class="btn btn-discord" target="_blank">
                     <i class="fab fa-discord"></i> Discord
                 </a>
             </div>
             
             <div class="action-buttons">
-                <a href="https://github.com/Samhax-tech" class="btn-primary" target="_blank">
+                <a href="https://github.com/Samhax-tech" class="btn btn-resume" target="_blank">
                     <i class="fab fa-github"></i> Github Repo
                 </a>
             </div>
@@ -975,6 +1239,7 @@
         <section id="projects">
             <h2>Featured Projects</h2>
             <p>Some of my recent work that I'm particularly proud of:</p>
+            
             <div class="project-grid">
                 <div class="project-card">
                     <img src="ai_dashboard_placeholder.png" alt="AI Analytics Dashboard">
@@ -983,7 +1248,7 @@
                         <p>A real-time analytics platform with machine learning predictions and customizable dashboards.</p>
                         <div class="project-tech">React Node.js TensorFlow.js</div>
                         <div class="project-links">
-                            <a href="#" class="btn">View Project</a>
+                            <a href="#" class="btn" target="_blank">View Project</a>
                         </div>
                     </div>
                 </div>
@@ -994,7 +1259,7 @@
                         <p>A responsive portfolio website showcasing web design skills and projects.</p>
                         <div class="project-tech">HTML CSS JavaScript</div>
                         <div class="project-links">
-                            <a href="#" class="btn">Live Demo</a>
+                            <a href="#" class="btn" target="_blank">Live Demo</a>
                         </div>
                     </div>
                 </div>
@@ -1082,6 +1347,12 @@
         </footer>
     </div>
 
+    <!-- Game Toggle Button -->
+    <button class="game-toggle-btn" id="game-toggle-btn" onclick="toggleGame()">
+        <i class="fas fa-gamepad"></i>
+    </button>
+
+    <!-- Chat Toggle Button -->
     <button class="chat-toggle-btn" id="chat-toggle-btn"><i class="fas fa-robot"></i></button>
 
     <div class="chatbot-container" id="chatbot-container">
@@ -1102,7 +1373,293 @@
     </div>
 
     <script>
+        // Theme Switcher
         document.addEventListener('DOMContentLoaded', () => {
+            const themeButtons = document.querySelectorAll('.theme-btn');
+            const body = document.body;
+
+            themeButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const theme = btn.getAttribute('data-theme');
+                    body.setAttribute('data-theme', theme);
+                    
+                    // Update active button
+                    themeButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Save theme preference
+                    localStorage.setItem('preferred-theme', theme);
+                });
+            });
+
+            // Load saved theme
+            const savedTheme = localStorage.getItem('preferred-theme') || 'classic';
+            body.setAttribute('data-theme', savedTheme);
+            document.querySelector(`[data-theme="${savedTheme}"]`).classList.add('active');
+        });
+
+        // Visitor Counter
+        function updateVisitorCount() {
+            let count = localStorage.getItem('visitor-count') || 0;
+            count = parseInt(count) + 1;
+            localStorage.setItem('visitor-count', count);
+            
+            const counterElement = document.getElementById('visitor-count');
+            animateCounter(counterElement, count, 1500);
+        }
+
+        // Hacking Terminal
+        const terminalLines = [
+            '> Initializing connection...',
+            '> Scanning network protocols...',
+            '> Bypassing firewall [████████] 100%',
+            '> Accessing mainframe...',
+            '> Decrypting data streams...',
+            '> Connection established ✓',
+            '> Welcome to SAMHAX-TECH.NET',
+            '> System status: ONLINE',
+            '> Security level: MAXIMUM',
+            '> Enjoy your stay, visitor!',
+            '> Type "help" for commands...',
+            '> _'
+        ];
+
+        function startTerminalAnimation() {
+            const terminalContent = document.getElementById('terminal-content');
+            terminalContent.innerHTML = '';
+            
+            terminalLines.forEach((line, index) => {
+                setTimeout(() => {
+                    const lineElement = document.createElement('div');
+                    lineElement.className = 'terminal-line';
+                    lineElement.textContent = line;
+                    lineElement.style.animationDelay = '0s';
+                    terminalContent.appendChild(lineElement);
+                    terminalContent.scrollTop = terminalContent.scrollHeight;
+                }, index * 300);
+            });
+        }
+
+        function toggleTerminal() {
+            const terminal = document.getElementById('hacking-terminal');
+            terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Snake Game
+        class SnakeGame {
+            constructor() {
+                this.canvas = document.getElementById('game-canvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.gridSize = 20;
+                this.tileCount = this.canvas.width / this.gridSize;
+                
+                this.snake = [
+                    { x: 10, y: 10 }
+                ];
+                this.food = { x: 15, y: 15 };
+                this.dx = 0;
+                this.dy = 0;
+                this.score = 0;
+                this.gameRunning = false;
+                
+                this.bindEvents();
+            }
+            
+            bindEvents() {
+                document.addEventListener('keydown', (e) => {
+                    if (!this.gameRunning) return;
+                    
+                    switch(e.key) {
+                        case 'ArrowUp':
+                        case 'w':
+                        case 'W':
+                            if (this.dy !== 1) {
+                                this.dx = 0;
+                                this.dy = -1;
+                            }
+                            break;
+                        case 'ArrowDown':
+                        case 's':
+                        case 'S':
+                            if (this.dy !== -1) {
+                                this.dx = 0;
+                                this.dy = 1;
+                            }
+                            break;
+                        case 'ArrowLeft':
+                        case 'a':
+                        case 'A':
+                            if (this.dx !== 1) {
+                                this.dx = -1;
+                                this.dy = 0;
+                            }
+                            break;
+                        case 'ArrowRight':
+                        case 'd':
+                        case 'D':
+                            if (this.dx !== -1) {
+                                this.dx = 1;
+                                this.dy = 0;
+                            }
+                            break;
+                    }
+                });
+            }
+            
+            start() {
+                this.gameRunning = true;
+                this.gameLoop();
+            }
+            
+            stop() {
+                this.gameRunning = false;
+            }
+            
+            reset() {
+                this.snake = [{ x: 10, y: 10 }];
+                this.food = { x: 15, y: 15 };
+                this.dx = 0;
+                this.dy = 0;
+                this.score = 0;
+                this.updateScore();
+                this.draw();
+            }
+            
+            gameLoop() {
+                if (!this.gameRunning) return;
+                
+                setTimeout(() => {
+                    this.clearCanvas();
+                    this.moveSnake();
+                    this.drawFood();
+                    this.drawSnake();
+                    
+                    if (this.checkCollision()) {
+                        this.gameOver();
+                        return;
+                    }
+                    
+                    this.gameLoop();
+                }, 100);
+            }
+            
+            clearCanvas() {
+                this.ctx.fillStyle = '#000';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+            }
+            
+            moveSnake() {
+                const head = { x: this.snake[0].x + this.dx, y: this.snake[0].y + this.dy };
+                this.snake.unshift(head);
+                
+                if (head.x === this.food.x && head.y === this.food.y) {
+                    this.score += 10;
+                    this.updateScore();
+                    this.generateFood();
+                } else {
+                    this.snake.pop();
+                }
+            }
+            
+            drawSnake() {
+                this.ctx.fillStyle = '#00ffff';
+                this.snake.forEach(segment => {
+                    this.ctx.fillRect(segment.x * this.gridSize, segment.y * this.gridSize, this.gridSize - 2, this.gridSize - 2);
+                });
+            }
+            
+            drawFood() {
+                this.ctx.fillStyle = '#ff0080';
+                this.ctx.fillRect(this.food.x * this.gridSize, this.food.y * this.gridSize, this.gridSize - 2, this.gridSize - 2);
+            }
+            
+            generateFood() {
+                this.food = {
+                    x: Math.floor(Math.random() * this.tileCount),
+                    y: Math.floor(Math.random() * this.tileCount)
+                };
+                
+                // Make sure food doesn't spawn on snake
+                for (let segment of this.snake) {
+                    if (segment.x === this.food.x && segment.y === this.food.y) {
+                        this.generateFood();
+                        return;
+                    }
+                }
+            }
+            
+            checkCollision() {
+                const head = this.snake[0];
+                
+                // Wall collision
+                if (head.x < 0 || head.x >= this.tileCount || head.y < 0 || head.y >= this.tileCount) {
+                    return true;
+                }
+                
+                // Self collision
+                for (let i = 1; i < this.snake.length; i++) {
+                    if (head.x === this.snake[i].x && head.y === this.snake[i].y) {
+                        return true;
+                    }
+                }
+                
+                return false;
+            }
+            
+            gameOver() {
+                this.gameRunning = false;
+                this.ctx.fillStyle = '#ff0080';
+                this.ctx.font = '30px Orbitron';
+                this.ctx.textAlign = 'center';
+                this.ctx.fillText('GAME OVER', this.canvas.width / 2, this.canvas.height / 2);
+                this.ctx.fillText(`Score: ${this.score}`, this.canvas.width / 2, this.canvas.height / 2 + 40);
+                this.ctx.fillText('Click to restart', this.canvas.width / 2, this.canvas.height / 2 + 80);
+                
+                this.canvas.addEventListener('click', () => {
+                    this.reset();
+                    this.start();
+                }, { once: true });
+            }
+            
+            updateScore() {
+                document.getElementById('game-score').textContent = this.score;
+            }
+            
+            draw() {
+                this.clearCanvas();
+                this.drawFood();
+                this.drawSnake();
+            }
+        }
+
+        let snakeGame;
+
+        function toggleGame() {
+            const gameElement = document.getElementById('mini-game');
+            gameElement.classList.toggle('active');
+            
+            if (gameElement.classList.contains('active')) {
+                if (!snakeGame) {
+                    snakeGame = new SnakeGame();
+                }
+                snakeGame.reset();
+                snakeGame.start();
+            } else {
+                if (snakeGame) {
+                    snakeGame.stop();
+                }
+            }
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Start terminal animation
+            setTimeout(startTerminalAnimation, 1000);
+            
+            // Update visitor count
+            updateVisitorCount();
+            
+            // Initialize chatbot functionality
             const chatToggleBtn = document.getElementById('chat-toggle-btn');
             const chatbotContainer = document.getElementById('chatbot-container');
             const closeChatBtn = document.getElementById('close-chat');
@@ -1125,9 +1682,6 @@
             // Enhanced predefined responses for Shadow
             const shadowResponses = {
                 "hello": "Hello there! How can I assist you today?",
-                
-
-
                 "hi": "Hi! I'm Shadow, your AI assistant. What can I help you with?",
                 "help": "I can help you with various tasks including:\n• Web development questions\n• Information about Samhax-Tech services\n• General assistance and conversation\n• Technical support\n\nJust ask me anything!",
                 "services": "Samhax-Tech offers:\n• Professional web design\n• WhatsApp bot development\n• AI chatbot integration\n• Website hosting services\n• Custom web applications\n\nWould you like to know more about any specific service?",
@@ -1136,6 +1690,8 @@
                 "about": "I'm Shadow, an AI assistant created to help users with various tasks. I'm powered by advanced language models and can assist with web development, provide information about Samhax-Tech services, and engage in meaningful conversations.",
                 "time": () => `The current time is ${new Date().toLocaleTimeString()}`,
                 "date": () => `Today's date is ${new Date().toLocaleDateString()}`,
+                "game": "I see you're interested in games! Try clicking the game controller button to play Cyber Snake - a cyberpunk version of the classic Snake game!",
+                "theme": "You can change the website theme using the color buttons in the top-right corner. We have Classic Cyberpunk, Matrix Green, Neon Pink, and Retro Orange themes!",
                 "default": "I'm here to help! Could you please rephrase your question or ask me something specific about web development, Samhax-Tech services, or anything else you'd like to know?"
             };
 
@@ -1320,6 +1876,9 @@
             if (profileImg) {
                 profileImg.classList.add('floating');
             }
+
+            // Make animateCounter globally available
+            window.animateCounter = animateCounter;
         });
     </script>
 </body>
