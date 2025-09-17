@@ -83,6 +83,129 @@
             100% { opacity: 0.1; }
         }
 
+        /* Navigation Header */
+        .nav-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--primary);
+            z-index: 1000;
+            padding: 15px 0;
+            box-shadow: 0 2px 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 30px;
+        }
+
+        .nav-menu li a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+
+        .nav-menu li a:hover {
+            color: var(--primary);
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .nav-menu li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-menu li a:hover::after {
+            width: 80%;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Mobile Navigation */
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: rgba(10, 10, 15, 0.98);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 50px;
+                transition: left 0.3s ease;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-menu li {
+                margin: 20px 0;
+            }
+
+            .nav-menu li a {
+                font-size: 1.3rem;
+                padding: 15px 30px;
+            }
+        }
+
+        /* Adjust body padding for fixed header */
+        .main-content {
+            padding-top: 80px;
+        }
+
         /* Glitch Effect */
         .glitch {
             position: relative;
@@ -145,7 +268,7 @@
         /* Theme Switcher */
         .theme-switcher {
             position: fixed;
-            top: 20px;
+            top: 90px;
             right: 20px;
             z-index: 1000;
             display: flex;
@@ -216,7 +339,7 @@
         /* Hacking Terminal */
         .hacking-terminal {
             position: fixed;
-            top: 80px;
+            top: 150px;
             left: 20px;
             width: 350px;
             height: 200px;
@@ -280,7 +403,7 @@
             51%, 100% { opacity: 0; }
         }
 
-        /* Mini Game - Tic-Tac-Toe */
+        /* Mini Game - Space Invaders */
         .mini-game {
             position: fixed;
             top: 50%;
@@ -293,7 +416,6 @@
             z-index: 1001;
             display: none;
             backdrop-filter: blur(10px);
-            width: 400px;
         }
 
         .mini-game.active {
@@ -321,73 +443,16 @@
             font-size: 20px;
         }
 
-        .game-mode-selector {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-            justify-content: center;
+        .game-canvas {
+            border: 2px solid var(--accent);
+            background: #000;
         }
 
-        .mode-btn {
-            padding: 8px 16px;
-            background: rgba(0, 255, 255, 0.2);
-            border: 1px solid var(--primary);
-            border-radius: 20px;
-            color: var(--primary);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .mode-btn.active {
-            background: var(--primary);
-            color: var(--dark);
-        }
-
-        .tic-tac-toe-board {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 5px;
-            width: 300px;
-            height: 300px;
-            margin: 0 auto;
-            background: var(--accent);
-            padding: 5px;
-            border-radius: 10px;
-        }
-
-        .tic-tac-toe-cell {
-            background: var(--dark);
-            border: none;
-            border-radius: 5px;
-            font-size: 3rem;
-            font-weight: bold;
-            color: var(--primary);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .tic-tac-toe-cell:hover {
-            background: rgba(0, 255, 255, 0.1);
-            transform: scale(0.95);
-        }
-
-        .tic-tac-toe-cell.x {
-            color: var(--primary);
-        }
-
-        .tic-tac-toe-cell.o {
-            color: var(--secondary);
-        }
-
-        .game-status {
+        .game-score {
             text-align: center;
-            margin-top: 15px;
+            margin-top: 10px;
             color: var(--accent);
             font-size: 1.2rem;
-            font-weight: bold;
         }
 
         .game-controls {
@@ -395,22 +460,6 @@
             margin-top: 10px;
             color: var(--light);
             font-size: 0.9rem;
-        }
-
-        .reset-btn {
-            background: linear-gradient(90deg, var(--secondary), var(--primary));
-            border: none;
-            border-radius: 20px;
-            color: white;
-            padding: 8px 16px;
-            margin-top: 10px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: transform 0.2s;
-        }
-
-        .reset-btn:hover {
-            transform: scale(1.05);
         }
 
         /* Game Toggle Button */
@@ -498,5 +547,1663 @@
         
         @keyframes borderPulse {
             0% { width: 200px; opacity: 1; }
+            100% { width: 300px; opacity: 0.7; }
+        }
+        
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid transparent;
+            background: linear-gradient(var(--dark), var(--dark)) padding-box,
+                        linear-gradient(135deg, var(--primary), var(--secondary)) border-box;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+            transition: transform 0.5s;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .profile-img:hover {
+            transform: rotate(5deg) scale(1.05);
+        }
+        
+        h1 {
+            margin: 25px 0 10px;
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--primary), var(--light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -1px;
+        }
+        
+        .tagline {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 40px 0;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transform: translateY(0);
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.6s;
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.4s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+            border-color: rgba(255,255,255,0.2);
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .btn:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+        
+        /* Unique gradient animations for each button */
+        .btn-whatsapp { 
+            background: linear-gradient(135deg, #25D366, #128C7E, #075E54);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+        }
+        
+        .btn-insta { 
+            background: linear-gradient(135deg, #E1306C, #833AB4, #405DE6);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+        }
+        
+        .btn-youtube { 
+            background: linear-gradient(135deg, #FF0000, #CC0000, #990000);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+        }
+        
+        .btn-github {
+            background: linear-gradient(135deg, #333, #6e5494, #24292e);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+        }
+        
+        .btn-telegram {
+            background: linear-gradient(135deg, #0088cc, #34aadc, #229ED9);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+        }
+        
+        .btn-discord {
+            background: linear-gradient(135deg, #5865F2, #404EED, #3C45A5);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+        }
+        
+        .btn-resume { 
+            background: linear-gradient(135deg, #2ecc71, #27ae60, #1e8449);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+        }
+        
+        .btn-whatsapp-bot {
+            background: linear-gradient(135deg, #075E54, #128C7E, #25D366);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Add pulsing glow effect */
+        .btn-whatsapp:hover { box-shadow: 0 15px 35px rgba(37, 211, 102, 0.4); }
+        .btn-insta:hover { box-shadow: 0 15px 35px rgba(225, 48, 108, 0.4); }
+        .btn-youtube:hover { box-shadow: 0 15px 35px rgba(255, 0, 0, 0.4); }
+        .btn-github:hover { box-shadow: 0 15px 35px rgba(110, 84, 148, 0.4); }
+        .btn-telegram:hover { box-shadow: 0 15px 35px rgba(0, 136, 204, 0.4); }
+        .btn-discord:hover { box-shadow: 0 15px 35px rgba(88, 101, 242, 0.4); }
+        .btn-resume:hover { box-shadow: 0 15px 35px rgba(46, 204, 113, 0.4); }
+        .btn-whatsapp-bot:hover { box-shadow: 0 15px 35px rgba(7, 94, 84, 0.4); }
+        
+        section {
+            background: rgba(10, 10, 20, 0.7);
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin: 0 0 30px;
+            color: var(--primary);
+            display: inline-block;
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--secondary);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .stat-card {
+            background: rgba(0, 240, 255, 0.05);
+            border: 1px solid rgba(0, 240, 255, 0.1);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(0, 240, 255, 0.1);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            color: rgba(255,255,255,0.7);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .skills-matrix {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .skill-category {
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .skill-category h3 {
+            color: var(--secondary);
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+        
+        .skill-item {
+            margin-bottom: 15px;
+        }
+        
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        .skill-bar {
+            background: rgba(255,255,255,0.1);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .skill-level {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+        }
+        
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .project-card {
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 255, 255, 0.2);
+        }
+        
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+        }
+        
+        .project-content {
+            padding: 25px;
+        }
+        
+        .project-content h3 {
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+        
+        .project-content p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .project-tech {
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-top: 15px;
+        }
+        
+        .project-links {
+            margin-top: 20px;
+        }
+        
+        .project-links .btn {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            border-radius: 20px;
+            background: linear-gradient(90deg, var(--primary), var(--electric-blue));
+        }
+        
+        .project-links .btn:hover {
+            background: linear-gradient(90deg, var(--electric-blue), var(--primary));
+        }
+        
+        /* Chatbot Styles */
+        .chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 350px;
+            height: 500px;
+            background: linear-gradient(135deg, #1a0033, #000011);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 255, 255, 0.4);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1000;
+            border: 2px solid var(--primary);
+            transform: scale(0.95);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .chatbot-container.active {
+            transform: scale(1);
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .chat-header {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            padding: 15px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .chat-header .close-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .chat-header .close-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .chat-window {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: rgba(0,0,0,0.6);
+            border-top: 1px solid rgba(0, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 0, 128, 0.1);
+        }
+        
+        .chat-message {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .chat-message.user {
+            justify-content: flex-end;
+        }
+        
+        .chat-message.shadow {
+            justify-content: flex-start;
+        }
+        
+        .message-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 10px;
+            border: 1px solid var(--accent);
+        }
+        
+        .message-bubble {
+            max-width: 70%;
+            padding: 10px 15px;
+            border-radius: 15px;
+            line-height: 1.4;
+            font-size: 0.9rem;
+            position: relative;
+            word-wrap: break-word;
+        }
+        
+        .chat-message.user .message-bubble {
+            background: linear-gradient(135deg, var(--electric-blue), var(--neon-blue));
+            color: white;
+            border-bottom-right-radius: 2px;
+        }
+        
+        .chat-message.shadow .message-bubble {
+            background: linear-gradient(135deg, #222, #333);
+            color: var(--light);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-bottom-left-radius: 2px;
+        }
+        
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid rgba(0, 255, 255, 0.1);
+            background-color: rgba(0,0,0,0.8);
+        }
+        
+        .chat-input input {
+            flex-grow: 1;
+            padding: 10px 15px;
+            border: 1px solid var(--primary);
+            border-radius: 25px;
+            background-color: #0a0a0f;
+            color: var(--light);
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .chat-input input:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 10px rgba(255, 0, 128, 0.5);
+        }
+        
+        .chat-input button {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 25px;
+            color: white;
+            padding: 10px 15px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+        
+        .chat-input button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        }
+        
+        .chat-toggle-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.8rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 255, 255, 0.5);
+            z-index: 1001;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .chat-toggle-btn:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 8px 25px rgba(0, 255, 255, 0.7);
+        }
+        
+        /* Typing indicator */
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+        
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+        
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
 
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            margin-top: 50px;
+            border-top: 1px solid rgba(0, 255, 255, 0.1);
+            background: linear-gradient(0deg, #0a0a0f, rgba(10, 10, 15, 0.5));
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .profile-img {
+                width: 150px;
+                height: 150px;
+            }
+            .social-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .btn {
+                width: 80%;
+                max-width: 300px;
+            }
+            .chatbot-container {
+                width: 90%;
+                height: 80%;
+                bottom: 5%;
+                right: 5%;
+                left: 5%;
+            }
+            .chat-toggle-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+                bottom: 20px;
+                right: 20px;
+            }
+            .theme-switcher {
+                top: 80px;
+                right: 10px;
+                padding: 8px;
+            }
+            .visitor-counter {
+                bottom: 80px;
+                left: 10px;
+                padding: 10px 15px;
+            }
+            .hacking-terminal {
+                width: 90%;
+                left: 5%;
+                top: 120px;
+            }
+            .game-toggle-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+                bottom: 20px;
+                left: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .profile-img {
+                width: 120px;
+                height: 120px;
+            }
+            .tagline {
+                font-size: 1.1rem;
+            }
+            .btn {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+            .chatbot-container {
+                width: 95%;
+                height: 90%;
+                bottom: 2.5%;
+                right: 2.5%;
+                left: 2.5%;
+            }
+        }
+    </style>
+</head>
+<body data-theme="classic">
+    <!-- Navigation Header -->
+    <nav class="nav-header">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">SAMHAX</a>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#games">Games</a></li>
+                <li><a href="#blogs">Blogs</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" id="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <!-- Enhanced Floating Particles -->
+        <div class="particle" style="left: 5%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 15%; animation-delay: 1s;"></div>
+        <div class="particle" style="left: 25%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 35%; animation-delay: 3s;"></div>
+        <div class="particle" style="left: 45%; animation-delay: 4s;"></div>
+        <div class="particle" style="left: 55%; animation-delay: 5s;"></div>
+        <div class="particle" style="left: 65%; animation-delay: 1.5s;"></div>
+        <div class="particle" style="left: 75%; animation-delay: 2.5s;"></div>
+        <div class="particle" style="left: 85%; animation-delay: 3.5s;"></div>
+        <div class="particle" style="left: 95%; animation-delay: 0.5s;"></div>
+        <div class="particle" style="left: 10%; animation-delay: 6s;"></div>
+        <div class="particle" style="left: 30%; animation-delay: 7s;"></div>
+        <div class="particle" style="left: 50%; animation-delay: 8s;"></div>
+        <div class="particle" style="left: 70%; animation-delay: 9s;"></div>
+        <div class="particle" style="left: 90%; animation-delay: 10s;"></div>
+
+        <!-- Theme Switcher -->
+        <div class="theme-switcher">
+            <div class="theme-btn theme-classic active" data-theme="classic" title="Classic Cyberpunk"></div>
+            <div class="theme-btn theme-matrix" data-theme="matrix" title="Matrix Green"></div>
+            <div class="theme-btn theme-neon" data-theme="neon" title="Neon Pink"></div>
+            <div class="theme-btn theme-retro" data-theme="retro" title="Retro Orange"></div>
+        </div>
+
+        <!-- Visitor Counter -->
+        <div class="visitor-counter">
+            <h4>Data Packets Received</h4>
+            <div class="counter-display" id="visitor-count">0</div>
+        </div>
+
+        <!-- Hacking Terminal -->
+        <div class="hacking-terminal" id="hacking-terminal">
+            <div class="terminal-header">
+                <div class="terminal-title">SYSTEM_ACCESS.exe</div>
+                <button class="terminal-close" onclick="toggleTerminal()">&times;</button>
+            </div>
+            <div class="terminal-content" id="terminal-content">
+                <!-- Terminal lines will be added dynamically -->
+            </div>
+        </div>
+
+        <!-- Mini Game - Space Invaders -->
+        <div class="mini-game" id="mini-game">
+            <div class="game-header">
+                <div class="game-title">Cyber Invaders</div>
+                <button class="game-close" onclick="toggleGame()">&times;</button>
+            </div>
+            <canvas class="game-canvas" id="game-canvas" width="500" height="600"></canvas>
+            <div class="game-score">Score: <span id="game-score">0</span></div>
+            <div class="game-controls">Use A/D or Arrow Keys to move, SPACE to shoot</div>
+        </div>
+
+        <div class="container">
+            <header id="home">
+                <img src="profile_image.jpeg" alt="Profile Picture" class="profile-img floating glitch">
+                <h1 class="glitch">Samhax-Tech</h1>
+                <p class="tagline">Web Designer | AI Enthusiast | Game Developer</p>
+                <div class="social-buttons">
+                    <a href="https://wa.me/923287573267" class="btn btn-whatsapp" target="_blank">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                    <a href="https://instagram.com/Samhax_official" class="btn btn-insta" target="_blank">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </a>
+                    <a href="https://youtube.com/@Samhax_tech" class="btn btn-youtube" target="_blank">
+                        <i class="fab fa-youtube"></i> YouTube
+                    </a>
+                    <a href="https://github.com/Samhax-tech" class="btn btn-github" target="_blank">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <a href="https://t.me/Samhax_official" class="btn btn-telegram" target="_blank">
+                        <i class="fab fa-telegram"></i> Telegram
+                    </a>
+                    <a href="https://discord.gg/cs4W3DNDdU" class="btn btn-discord" target="_blank">
+                        <i class="fab fa-discord"></i> Discord
+                    </a>
+                </div>
+                
+                <div class="action-buttons">
+                    <a href="https://github.com/Samhax-tech" class="btn btn-resume" target="_blank">
+                        <i class="fab fa-github"></i> Github Repo
+                    </a>
+                </div>
+            </header>
+            
+            <section id="about">
+                <h2>About Me</h2>
+                <p>Hello! I'm Hamza, known as Samhax online. I provide professional web design, bot development, and hosting services. I combine creativity and technical skills to build engaging websites and efficient bots, supported by reliable hosting.</p>
+                <p>My expertise focuses on delivering tailored web experiences, developing intelligent automation solutions, and offering dependable hosting to ensure optimal online performance.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="projects-count">0</div>
+                        <div class="stat-label">Projects Completed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="clients-count">0</div>
+                        <div class="stat-label">Happy Clients</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="experience-years">0</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="coffee-cups">0</div>
+                        <div class="stat-label">Cups of Coffee</div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="skills">
+                <h2>Web Design Skills</h2>
+                <p>My expertise lies in crafting visually appealing and user-friendly web experiences. Here's a look at my key design proficiencies:</p>
+                
+                <h3>Design Tools & Technologies</h3>
+                <div class="skills-matrix">
+                    <div class="skill-category">
+                        <h3>UI/UX Design</h3>
+                        <div class="skill-item">
+                            <div class="skill-name"><span>UI/UX Design</span><span>82%</span></div>
+                            <div class="skill-bar"><div class="skill-level" style="width: 82%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name"><span>HTML</span><span>89%</span></div>
+                            <div class="skill-bar"><div class="skill-level" style="width: 89%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name"><span>CSS</span><span>92%</span></div>
+                            <div class="skill-bar"><div class="skill-level" style="width: 92%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name"><span>JavaScript (for interactivity)</span><span>80%</span></div>
+                            <div class="skill-bar"><div class="skill-level" style="width: 80%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name"><span>Responsive Design</span><span>98%</span></div>
+                            <div class="skill-bar"><div class="skill-level" style="width: 98%;"></div></div>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Bot Development & AI</h3>
+                        <div class="skill-item">
+                            <div class="skill-name"><span>WhatsApp Bot Development</span><span>90%</span></div>
+                            <div class="skill-bar"><div class="skill-level" style="width: 90%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name"><span>LLM Integration</span><span>75%</span></div>
+                            <div class="skill-bar"><div class="skill-level" style="width: 75%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name"><span>NLP (Natural Language Processing)</span><span>70%</span></div>
+                            <div class="skill-bar"><div class="skill-level" style="width: 70%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="projects">
+                <h2>Featured Projects</h2>
+                <p>Some of my recent work that I'm particularly proud of:</p>
+                
+                <div class="project-grid">
+                    <div class="project-card">
+                        <img src="ai_dashboard_placeholder.png" alt="AI Analytics Dashboard">
+                        <div class="project-content">
+                            <h3>AI Analytics Dashboard</h3>
+                            <p>A real-time analytics platform with machine learning predictions and customizable dashboards.</p>
+                            <div class="project-tech">React Node.js TensorFlow.js</div>
+                            <div class="project-links">
+                                <a href="#" class="btn" target="_blank">View Project</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="web_designer_portfolio_placeholder.png" alt="Personal Web Designer Portfolio">
+                        <div class="project-content">
+                            <h3>Personal Web Designer Portfolio</h3>
+                            <p>A responsive portfolio website showcasing web design skills and projects.</p>
+                            <div class="project-tech">HTML CSS JavaScript</div>
+                            <div class="project-links">
+                                <a href="#" class="btn" target="_blank">Live Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-content">
+                            <h3>🌙 Moonhax Project</h3>
+                            <p>An innovative web application showcasing cutting-edge design and development techniques with modern UI/UX principles.</p>
+                            <div class="project-tech">Next.js React Tailwind CSS</div>
+                            <div class="project-links">
+                                <a href="https://moonhax.vercel.app" class="btn" target="_blank">Visit Moonhax</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="games">
+                <h2>🎮 Interactive Games</h2>
+                <p>Experience fun and engaging games built with modern web technologies:</p>
+                
+                <div class="project-grid">
+                    <div class="project-card">
+                        <div class="project-content">
+                            <h3>🚀 Cyber Invaders</h3>
+                            <p>A cyberpunk-themed space invaders game with neon graphics and smooth gameplay. Defend against the digital invasion!</p>
+                            <div class="project-tech">HTML5 Canvas JavaScript CSS3</div>
+                            <div class="project-links">
+                                <button class="btn" onclick="toggleGame()">Play Now</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-content">
+                            <h3>🎯 Cyber Puzzle</h3>
+                            <p>Challenge your mind with this cyberpunk-themed puzzle game featuring matrix-style visuals and brain-teasing challenges.</p>
+                            <div class="project-tech">JavaScript Canvas CSS3</div>
+                            <div class="project-links">
+                                <button class="btn" onclick="alert('Coming Soon!')">Coming Soon</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-content">
+                            <h3>🏎️ Neon Racer</h3>
+                            <p>High-speed racing through neon-lit cyberpunk streets. Experience the thrill of futuristic racing with stunning visual effects.</p>
+                            <div class="project-tech">WebGL Three.js JavaScript</div>
+                            <div class="project-links">
+                                <button class="btn" onclick="alert('In Development!')">In Development</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="blogs">
+                <h2>📝 Tech Blogs & Articles</h2>
+                <p>Insights, tutorials, and thoughts on web development, AI, and technology:</p>
+                
+                <div class="project-grid">
+                    <div class="project-card">
+                        <div class="project-content">
+                            <h3>🤖 AI in Web Development</h3>
+                            <p>Exploring how artificial intelligence is revolutionizing web development, from automated testing to intelligent user interfaces and personalized experiences.</p>
+                            <div class="project-tech">AI Machine Learning Web Development</div>
+                            <div class="project-links">
+                                <button class="btn" onclick="alert('Article coming soon!')">Read Article</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-content">
+                            <h3>🎨 Modern CSS Techniques</h3>
+                            <p>Advanced CSS techniques for creating stunning visual effects, animations, and responsive designs in modern web applications. Master the art of CSS.</p>
+                            <div class="project-tech">CSS3 Animations Responsive Design</div>
+                            <div class="project-links">
+                                <button class="btn" onclick="alert('Tutorial coming soon!')">Read Tutorial</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-content">
+                            <h3>🚀 Building WhatsApp Bots</h3>
+                            <p>A comprehensive guide to creating intelligent WhatsApp bots with natural language processing, automated responses, and business integration.</p>
+                            <div class="project-tech">Node.js WhatsApp API NLP</div>
+                            <div class="project-links">
+                                <button class="btn" onclick="alert('Guide coming soon!')">Read Guide</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-content">
+                            <h3>🔮 Future of Web Design</h3>
+                            <p>Predictions and trends shaping the future of web design, including AR/VR integration, voice interfaces, and immersive user experiences.</p>
+                            <div class="project-tech">WebXR Voice UI Future Tech</div>
+                            <div class="project-links">
+                                <button class="btn" onclick="alert('Article in progress!')">Coming Soon</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-content">
+                            <h3>⚡ Performance Optimization</h3>
+                            <p>Essential techniques for optimizing web performance, including lazy loading, code splitting, and advanced caching strategies for lightning-fast websites.</p>
+                            <div class="project-tech">Performance Optimization PWA</div>
+                            <div class="project-links">
+                                <button class="btn" onclick="alert('Tutorial in development!')">In Development</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-content">
+                            <h3>🛡️ Cybersecurity for Developers</h3>
+                            <p>Essential cybersecurity practices every web developer should know, from secure coding to protecting against common vulnerabilities and attacks.</p>
+                            <div class="project-tech">Security OWASP Best Practices</div>
+                            <div class="project-links">
+                                <button class="btn" onclick="alert('Security guide coming soon!')">Coming Soon</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="services">
+                <h2>WhatsApp Bot Services</h2>
+                <p>I offer specialized WhatsApp bot development and hosting services:</p>
+                
+                <h3>Bot Features</h3>
+                <ul>
+                    <li>Automated responses and chatbots</li>
+                    <li>CRM integration</li>
+                    <li>Payment processing</li>
+                    <li>Multi-language support</li>
+                    <li>AI-powered interactions</li>
+                </ul>
+                
+                <h3>Hosting Services</h3>
+                <ul>
+                    <li>24/7 uptime monitoring</li>
+                    <li>Scalable cloud infrastructure</li>
+                    <li>Daily backups</li>
+                    <li>DDoS protection</li>
+                    <li>API integration support</li>
+                </ul>
+            </section>
+
+            <section id="chatbot">
+                <h2>Meet Shadow - Your AI Assistant</h2>
+                <p>Introducing Shadow, an intelligent chatbot powered by advanced AI technology. Shadow can help answer questions, provide information, and assist with various tasks.</p>
+                
+                <div class="chat-interface">
+                    <div class="chat-window" id="chat-window">
+                        <div class="chat-message shadow">
+                            <img src="profile_image.jpeg" alt="Shadow Avatar" class="message-avatar">
+                            <div class="message-bubble">Hello! I'm Shadow, your AI assistant. How can I help you today?</div>
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="user-input" placeholder="Type your message here...">
+                        <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+
+                <h3>Shadow's Capabilities</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-comments"></i>
+                        <h4>Natural Conversations</h4>
+                        <p>Engage in human-like conversations with advanced language understanding.</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-lightbulb"></i>
+                        <h4>Smart Assistance</h4>
+                        <p>Get help with coding, design, and technical questions.</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-clock"></i>
+                        <h4>24/7 Availability</h4>
+                        <p>Shadow is always ready to help, anytime you need assistance.</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-brain"></i>
+                        <h4>Learning & Adapting</h4>
+                        <p>Continuously improving responses based on interactions.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact">
+                <h2>Get In Touch</h2>
+                <p>Ready to start your next project? Let's connect and bring your ideas to life!</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fab fa-whatsapp"></i>
+                        <h4>WhatsApp</h4>
+                        <p>+92 328 7573267</p>
+                        <a href="https://wa.me/923287573267" class="btn btn-whatsapp" target="_blank">Message Now</a>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fab fa-telegram"></i>
+                        <h4>Telegram</h4>
+                        <p>@Samhax_official</p>
+                        <a href="https://t.me/Samhax_official" class="btn btn-telegram" target="_blank">Chat on Telegram</a>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fab fa-github"></i>
+                        <h4>GitHub</h4>
+                        <p>Samhax-tech</p>
+                        <a href="https://github.com/Samhax-tech" class="btn btn-github" target="_blank">View Projects</a>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-envelope"></i>
+                        <h4>Email</h4>
+                        <p>Available via social media</p>
+                        <a href="#chatbot" class="btn btn-resume">Ask Shadow</a>
+                    </div>
+                </div>
+            </section>
+
+            <footer>
+                <p>&copy; 2025 Samhax-Tech. All rights reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Game Toggle Button -->
+    <button class="game-toggle-btn" id="game-toggle-btn" onclick="toggleGame()">
+        <i class="fas fa-gamepad"></i>
+    </button>
+
+    <!-- Chat Toggle Button -->
+    <button class="chat-toggle-btn" id="chat-toggle-btn"><i class="fas fa-robot"></i></button>
+
+    <div class="chatbot-container" id="chatbot-container">
+        <div class="chat-header">
+            Shadow AI Assistant
+            <button class="close-btn" id="close-chat">&times;</button>
+        </div>
+        <div class="chat-window" id="chat-window-popup">
+            <div class="chat-message shadow">
+                <img src="profile_image.jpeg" alt="Shadow Avatar" class="message-avatar">
+                <div class="message-bubble">Hello! I'm Shadow, your AI assistant. How can I help you today?</div>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-input-popup" placeholder="Type your message here...">
+            <button id="send-btn-popup"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script>
+        // Navigation Toggle
+        const navToggle = document.getElementById('nav-toggle');
+        const navMenu = document.getElementById('nav-menu');
+
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Theme Switcher
+        const themeButtons = document.querySelectorAll('.theme-btn');
+        const body = document.body;
+
+        themeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const theme = btn.getAttribute('data-theme');
+                body.setAttribute('data-theme', theme);
+                
+                themeButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                localStorage.setItem('theme', theme);
+            });
+        });
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'classic';
+        body.setAttribute('data-theme', savedTheme);
+        document.querySelector(`[data-theme="${savedTheme}"]`).classList.add('active');
+
+        // Terminal Animation
+        const terminalLines = [
+            'Initializing connection...',
+            'Scanning network protocols...',
+            'Bypassing firewall... SUCCESS',
+            'Accessing mainframe...',
+            'Downloading user data...',
+            'Establishing secure tunnel...',
+            'Connection established.',
+            'Welcome to SAMHAX-TECH system.',
+            'Type "help" for available commands.',
+            '> _'
+        ];
+
+        let terminalIndex = 0;
+
+        function startTerminalAnimation() {
+            const terminalContent = document.getElementById('terminal-content');
+            
+            function addLine() {
+                if (terminalIndex < terminalLines.length) {
+                    const line = document.createElement('div');
+                    line.className = 'terminal-line';
+                    line.textContent = terminalLines[terminalIndex];
+                    
+                    if (terminalIndex === terminalLines.length - 1) {
+                        line.innerHTML = terminalLines[terminalIndex].replace('_', '<span class="terminal-cursor">_</span>');
+                    }
+                    
+                    terminalContent.appendChild(line);
+                    terminalContent.scrollTop = terminalContent.scrollHeight;
+                    
+                    terminalIndex++;
+                    setTimeout(addLine, 800);
+                }
+            }
+            
+            addLine();
+        }
+
+        function toggleTerminal() {
+            const terminal = document.getElementById('hacking-terminal');
+            terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Visitor Counter
+        function updateVisitorCount() {
+            let count = localStorage.getItem('visitorCount') || 0;
+            count = parseInt(count) + 1;
+            localStorage.setItem('visitorCount', count);
+            
+            const counter = document.getElementById('visitor-count');
+            let current = 0;
+            const increment = count / 50;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= count) {
+                    counter.textContent = count;
+                    clearInterval(timer);
+                } else {
+                    counter.textContent = Math.floor(current);
+                }
+            }, 30);
+        }
+
+        // Space Invaders Game
+        class SpaceInvadersGame {
+            constructor() {
+                this.canvas = document.getElementById('game-canvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.gameRunning = false;
+                this.score = 0;
+                
+                // Game objects
+                this.player = {
+                    x: this.canvas.width / 2 - 25,
+                    y: this.canvas.height - 60,
+                    width: 50,
+                    height: 30,
+                    speed: 5
+                };
+                
+                this.bullets = [];
+                this.enemies = [];
+                this.enemyBullets = [];
+                
+                // Input handling
+                this.keys = {};
+                this.setupControls();
+                this.createEnemies();
+            }
+            
+            setupControls() {
+                document.addEventListener('keydown', (e) => {
+                    this.keys[e.key.toLowerCase()] = true;
+                    if (e.key === ' ') {
+                        e.preventDefault();
+                        this.shoot();
+                    }
+                });
+                
+                document.addEventListener('keyup', (e) => {
+                    this.keys[e.key.toLowerCase()] = false;
+                });
+            }
+            
+            createEnemies() {
+                this.enemies = [];
+                for (let row = 0; row < 5; row++) {
+                    for (let col = 0; col < 10; col++) {
+                        this.enemies.push({
+                            x: col * 45 + 50,
+                            y: row * 40 + 50,
+                            width: 30,
+                            height: 20,
+                            alive: true
+                        });
+                    }
+                }
+            }
+            
+            shoot() {
+                this.bullets.push({
+                    x: this.player.x + this.player.width / 2 - 2,
+                    y: this.player.y,
+                    width: 4,
+                    height: 10,
+                    speed: 7
+                });
+            }
+            
+            update() {
+                if (!this.gameRunning) return;
+                
+                // Move player
+                if (this.keys['a'] || this.keys['arrowleft']) {
+                    this.player.x = Math.max(0, this.player.x - this.player.speed);
+                }
+                if (this.keys['d'] || this.keys['arrowright']) {
+                    this.player.x = Math.min(this.canvas.width - this.player.width, this.player.x + this.player.speed);
+                }
+                
+                // Update bullets
+                this.bullets = this.bullets.filter(bullet => {
+                    bullet.y -= bullet.speed;
+                    return bullet.y > 0;
+                });
+                
+                // Update enemy bullets
+                this.enemyBullets = this.enemyBullets.filter(bullet => {
+                    bullet.y += bullet.speed;
+                    return bullet.y < this.canvas.height;
+                });
+                
+                // Enemy shooting
+                if (Math.random() < 0.02) {
+                    const aliveEnemies = this.enemies.filter(enemy => enemy.alive);
+                    if (aliveEnemies.length > 0) {
+                        const enemy = aliveEnemies[Math.floor(Math.random() * aliveEnemies.length)];
+                        this.enemyBullets.push({
+                            x: enemy.x + enemy.width / 2 - 2,
+                            y: enemy.y + enemy.height,
+                            width: 4,
+                            height: 10,
+                            speed: 3
+                        });
+                    }
+                }
+                
+                // Collision detection
+                this.checkCollisions();
+                
+                // Check win condition
+                if (this.enemies.every(enemy => !enemy.alive)) {
+                    this.gameWin();
+                }
+            }
+            
+            checkCollisions() {
+                // Bullet vs Enemy
+                this.bullets.forEach((bullet, bulletIndex) => {
+                    this.enemies.forEach((enemy, enemyIndex) => {
+                        if (enemy.alive && 
+                            bullet.x < enemy.x + enemy.width &&
+                            bullet.x + bullet.width > enemy.x &&
+                            bullet.y < enemy.y + enemy.height &&
+                            bullet.y + bullet.height > enemy.y) {
+                            
+                            enemy.alive = false;
+                            this.bullets.splice(bulletIndex, 1);
+                            this.score += 10;
+                            this.updateScore();
+                        }
+                    });
+                });
+                
+                // Enemy bullet vs Player
+                this.enemyBullets.forEach((bullet, bulletIndex) => {
+                    if (bullet.x < this.player.x + this.player.width &&
+                        bullet.x + bullet.width > this.player.x &&
+                        bullet.y < this.player.y + this.player.height &&
+                        bullet.y + bullet.height > this.player.y) {
+                        
+                        this.gameOver();
+                    }
+                });
+            }
+            
+            draw() {
+                // Clear canvas
+                this.ctx.fillStyle = '#000';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                // Draw stars
+                this.ctx.fillStyle = '#fff';
+                for (let i = 0; i < 50; i++) {
+                    const x = (i * 37) % this.canvas.width;
+                    const y = (i * 17) % this.canvas.height;
+                    this.ctx.fillRect(x, y, 1, 1);
+                }
+                
+                // Draw player
+                this.ctx.fillStyle = '#00ffff';
+                this.ctx.fillRect(this.player.x, this.player.y, this.player.width, this.player.height);
+                
+                // Draw bullets
+                this.ctx.fillStyle = '#00ff41';
+                this.bullets.forEach(bullet => {
+                    this.ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+                });
+                
+                // Draw enemy bullets
+                this.ctx.fillStyle = '#ff0080';
+                this.enemyBullets.forEach(bullet => {
+                    this.ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+                });
+                
+                // Draw enemies
+                this.ctx.fillStyle = '#ff4500';
+                this.enemies.forEach(enemy => {
+                    if (enemy.alive) {
+                        this.ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
+                    }
+                });
+            }
+            
+            gameLoop() {
+                if (!this.gameRunning) return;
+                
+                this.update();
+                this.draw();
+                
+                requestAnimationFrame(() => this.gameLoop());
+            }
+            
+            start() {
+                this.gameRunning = true;
+                this.gameLoop();
+            }
+            
+            stop() {
+                this.gameRunning = false;
+            }
+            
+            reset() {
+                this.score = 0;
+                this.updateScore();
+                this.bullets = [];
+                this.enemyBullets = [];
+                this.player.x = this.canvas.width / 2 - 25;
+                this.createEnemies();
+                this.draw();
+            }
+            
+            gameOver() {
+                this.gameRunning = false;
+                this.ctx.fillStyle = '#ff0080';
+                this.ctx.font = '30px Orbitron';
+                this.ctx.textAlign = 'center';
+                this.ctx.fillText('GAME OVER', this.canvas.width / 2, this.canvas.height / 2);
+                this.ctx.fillText(`Score: ${this.score}`, this.canvas.width / 2, this.canvas.height / 2 + 40);
+                this.ctx.fillText('Click to restart', this.canvas.width / 2, this.canvas.height / 2 + 80);
+                
+                this.canvas.addEventListener('click', () => {
+                    this.reset();
+                    this.start();
+                }, { once: true });
+            }
+            
+            gameWin() {
+                this.gameRunning = false;
+                this.ctx.fillStyle = '#00ff41';
+                this.ctx.font = '30px Orbitron';
+                this.ctx.textAlign = 'center';
+                this.ctx.fillText('YOU WIN!', this.canvas.width / 2, this.canvas.height / 2);
+                this.ctx.fillText(`Score: ${this.score}`, this.canvas.width / 2, this.canvas.height / 2 + 40);
+                this.ctx.fillText('Click to play again', this.canvas.width / 2, this.canvas.height / 2 + 80);
+                
+                this.canvas.addEventListener('click', () => {
+                    this.reset();
+                    this.start();
+                }, { once: true });
+            }
+            
+            updateScore() {
+                document.getElementById('game-score').textContent = this.score;
+            }
+        }
+
+        let spaceInvadersGame;
+
+        function toggleGame() {
+            const gameElement = document.getElementById('mini-game');
+            gameElement.classList.toggle('active');
+            
+            if (gameElement.classList.contains('active')) {
+                if (!spaceInvadersGame) {
+                    spaceInvadersGame = new SpaceInvadersGame();
+                }
+                spaceInvadersGame.reset();
+                spaceInvadersGame.start();
+            } else {
+                if (spaceInvadersGame) {
+                    spaceInvadersGame.stop();
+                }
+            }
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Start terminal animation
+            setTimeout(startTerminalAnimation, 1000);
+            
+            // Update visitor count
+            updateVisitorCount();
+            
+            // Initialize chatbot functionality
+            const chatToggleBtn = document.getElementById('chat-toggle-btn');
+            const chatbotContainer = document.getElementById('chatbot-container');
+            const closeChatBtn = document.getElementById('close-chat');
+            const chatWindowPopup = document.getElementById('chat-window-popup');
+            const userInputPopup = document.getElementById('user-input-popup');
+            const sendBtnPopup = document.getElementById('send-btn-popup');
+
+            chatToggleBtn.addEventListener('click', () => {
+                chatbotContainer.classList.toggle('active');
+            });
+
+            closeChatBtn.addEventListener('click', () => {
+                chatbotContainer.classList.remove('active');
+            });
+
+            // Enhanced predefined responses for Shadow
+            const shadowResponses = {
+                "hello": "Hello there! How can I assist you today?",
+                "hi": "Hi! I'm Shadow, your AI assistant. What can I help you with?",
+                "help": "I can help you with various tasks including:\n• Web development questions\n• Information about Samhax-Tech services\n• General assistance and conversation\n• Technical support\n\nJust ask me anything!",
+                "services": "Samhax-Tech offers:\n• Professional web design\n• WhatsApp bot development\n• AI chatbot integration\n• Website hosting services\n• Custom web applications\n\nWould you like to know more about any specific service?",
+                "contact": "You can contact Samhax-Tech through:\n• WhatsApp: +92 328 7573267\n• Instagram: @Samhax_official\n• YouTube: @Samhax_tech\n• GitHub: Samhax-tech\n• Telegram: @Samhax_official",
+                "moonhax": "Moonhax is an innovative web application showcasing cutting-edge design and development techniques. It features modern UI/UX principles built with Next.js, React, and Tailwind CSS. You can visit it at moonhax.vercel.app",
+                "about": "I'm Shadow, an AI assistant created to help users with various tasks. I'm powered by advanced language models and can assist with web development, provide information about Samhax-Tech services, and engage in meaningful conversations.",
+                "time": () => `The current time is ${new Date().toLocaleTimeString()}`,
+                "date": () => `Today's date is ${new Date().toLocaleDateString()}`,
+                "game": "I see you're interested in games! Try clicking the game controller button to play Cyber Invaders - a cyberpunk version of the classic Space Invaders game!",
+                "theme": "You can change the website theme using the color buttons in the top-right corner. We have Classic Cyberpunk, Matrix Green, Neon Pink, and Retro Orange themes!",
+                "default": "I'm here to help! Could you please rephrase your question or ask me something specific about web development, Samhax-Tech services, or anything else you'd like to know?"
+            };
+
+            // Function to get Shadow's response
+            function getShadowResponse(message) {
+                const lowerMessage = message.toLowerCase().trim();
+                
+                // Check for predefined responses
+                for (const [key, response] of Object.entries(shadowResponses)) {
+                    if (lowerMessage.includes(key)) {
+                        return typeof response === 'function' ? response() : response;
+                    }
+                }
+
+                // Fallback response
+                return shadowResponses.default;
+            }
+
+            // Function to add message to chat
+            function addMessage(message, isUser = false) {
+                const chatWindow = chatWindowPopup;
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `chat-message ${isUser ? 'user' : 'shadow'}`;
+                
+                const avatar = document.createElement('img');
+                avatar.src = 'profile_image.jpeg';
+                avatar.alt = isUser ? 'User Avatar' : 'Shadow Avatar';
+                avatar.className = 'message-avatar';
+                
+                const bubble = document.createElement('div');
+                bubble.className = 'message-bubble';
+                bubble.textContent = message;
+                
+                if (isUser) {
+                    messageDiv.appendChild(bubble);
+                    messageDiv.appendChild(avatar);
+                } else {
+                    messageDiv.appendChild(avatar);
+                    messageDiv.appendChild(bubble);
+                }
+                
+                chatWindow.appendChild(messageDiv);
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            }
+
+            // Function to show typing indicator
+            function showTypingIndicator() {
+                const chatWindow = chatWindowPopup;
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'chat-message shadow typing-message';
+                typingDiv.innerHTML = `
+                    <img src="profile_image.jpeg" alt="Shadow Avatar" class="message-avatar">
+                    <div class="message-bubble">
+                        <div class="typing-indicator">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                `;
+                chatWindow.appendChild(typingDiv);
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+                return typingDiv;
+            }
+
+            // Function to remove typing indicator
+            function removeTypingIndicator(typingDiv) {
+                if (typingDiv && typingDiv.parentNode) {
+                    typingDiv.parentNode.removeChild(typingDiv);
+                }
+            }
+
+            // Function to handle sending messages
+            function sendMessage() {
+                const input = userInputPopup;
+                const message = input.value.trim();
+                
+                if (message === '') return;
+                
+                // Add user message
+                addMessage(message, true);
+                input.value = '';
+                
+                // Show typing indicator
+                const typingIndicator = showTypingIndicator();
+                
+                // Get Shadow's response
+                setTimeout(() => {
+                    const response = getShadowResponse(message);
+                    removeTypingIndicator(typingIndicator);
+                    addMessage(response, false);
+                }, 1000);
+            }
+
+            // Event listeners for popup chat
+            sendBtnPopup.addEventListener('click', sendMessage);
+            userInputPopup.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+
+            // Animated counter for stats
+            function animateCounter(element, target, duration = 2000) {
+                let start = 0;
+                const increment = target / (duration / 16);
+                
+                function updateCounter() {
+                    start += increment;
+                    if (start < target) {
+                        element.textContent = Math.floor(start);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        element.textContent = target;
+                    }
+                }
+                updateCounter();
+            }
+
+            // Initialize counters when page loads
+            setTimeout(() => {
+                animateCounter(document.getElementById('projects-count'), 29);
+                animateCounter(document.getElementById('clients-count'), 22);
+                animateCounter(document.getElementById('experience-years'), 1);
+                animateCounter(document.getElementById('coffee-cups'), 83);
+            }, 1000);
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Add floating animation to profile image
+            const profileImg = document.querySelector('.profile-img');
+            if (profileImg) {
+                profileImg.classList.add('floating');
+            }
+        });
+    </script>
+</body>
+</html>
 
